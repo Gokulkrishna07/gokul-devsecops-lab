@@ -1,3 +1,25 @@
-git add .
-git commit -m "Add npm audit security pipeline"
-git push
+name: DevSecOps Security Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run npm audit
+        run: npm audit --audit-level=high
